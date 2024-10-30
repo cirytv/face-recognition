@@ -6,12 +6,11 @@ import {
   deleteStudent,
   getStudentById,
   updateStudent,
-} from './handlers/student'
-import { handleInputErrors } from './middleware/index'
+} from '../handlers/student'
+import { handleInputErrors } from '../middleware/index'
 
 // create routers
-const router_students = Router()
-const router_attendance = Router()
+export const router_students = Router()
 
 // Routing students
 router_students.get('/', getStudents)
@@ -59,9 +58,3 @@ router_students.delete(
   handleInputErrors,
   deleteStudent as any
 )
-// Routing attendance
-router_attendance.get('/', (req, res) => {
-  res.json('from post attendances')
-})
-
-export { router_attendance, router_students }

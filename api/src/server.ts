@@ -1,7 +1,7 @@
 import express from 'express'
 import colors from 'colors'
-import { router_attendance, router_students } from './router'
 import db from './config/db'
+import { router_attendance, router_students } from './router'
 
 // connect to database
 export async function connectDB() {
