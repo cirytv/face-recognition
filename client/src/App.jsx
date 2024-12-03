@@ -6,12 +6,13 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { ColorModeContext, useMode } from './theme'
 import Empresas from './scenes/empresas'
 import FormStudent from './scenes/form/FormStudent'
-import FormSubject from './scenes/form/FormSubject'
 import FormAttendance from './scenes/form/FormAttendance'
 import FormProfessor from './scenes/form/FormProfessor'
 import Students from './scenes/students'
 import Example from './scenes/example'
 import FormExample from './scenes/form/FormExample'
+import FormCourse from './scenes/form/FormCourse'
+import FormCareer from './scenes/form/FormCareer'
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -32,7 +33,8 @@ function App() {
               <Route path="/form/student" element={<FormStudent />} />
               <Route path="/form/professor" element={<FormProfessor />} />
               <Route path="/form/attendance" element={<FormAttendance />} />
-              <Route path="/form/subject" element={<FormSubject />} />
+              <Route path="/form/course" element={<FormCourse />} />
+              <Route path="/form/career" element={<FormCareer />} />
               <Route path="/form/example" element={<FormExample />} />
             </Routes>
           </main>

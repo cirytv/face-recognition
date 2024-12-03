@@ -196,8 +196,16 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Materias"
-              to="/form/subject"
+              title="Cursos"
+              to="/form/course"
+              icon={<CelebrationIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Carreras"
+              to="/form/career"
               icon={<CelebrationIcon />}
               selected={selected}
               setSelected={setSelected}

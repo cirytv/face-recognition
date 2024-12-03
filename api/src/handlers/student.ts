@@ -30,7 +30,9 @@ export const addStudent = async (req: Request, res: Response) => {
   let info = {
     image: req.file.filename,
     name: req.body.name,
+    email: req.body.email,
     age: req.body.age,
+    career: req.body.career,
   }
 
   const student = await Student.create(info)

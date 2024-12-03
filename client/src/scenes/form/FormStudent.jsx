@@ -1,4 +1,13 @@
-import { Box, Button, styled, TextField } from '@mui/material'
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  styled,
+  TextField,
+} from '@mui/material'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -66,11 +75,24 @@ const FormStudent = () => {
                 label="Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
+                value={values.name}
                 name="name"
                 error={!!touched.name && !!errors.name}
                 helperText={touched.name && errors.name}
-                sx={{ gridColumn: 'span 2' }}
+                sx={{ gridColumn: 'span 4' }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="email"
+                label="Email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                name="email"
+                error={!!touched.email && !!errors.email}
+                helperText={touched.email && errors.email}
+                sx={{ gridColumn: 'span 4' }}
               />
               <TextField
                 fullWidth
@@ -85,6 +107,21 @@ const FormStudent = () => {
                 helperText={touched.age && errors.age}
                 sx={{ gridColumn: 'span 2' }}
               />
+
+              <FormControl
+                fullWidth
+                sx={{ gridColumn: 'span 2' }}
+                variant="filled"
+              >
+                <InputLabel>Careers</InputLabel>
+                <Select
+                  value={values.career}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                >
+                  <MenuItem value={1}>Option 1</MenuItem>
+                </Select>
+              </FormControl>
 
               <MuiButton
                 component="label"
@@ -148,14 +185,18 @@ const FormStudent = () => {
 }
 
 const checkoutSchema = yup.object().shape({
-  name: yup.string().required('required'),
-  age: yup.number().typeError('must be a number type').required('required'),
   image: yup.mixed().required('Image is required'),
+  name: yup.string().required('required'),
+  email: yup.string().email().required('required'),
+  age: yup.number().typeError('must be a number type').required('required'),
+  career: yup.string().required('required'),
 })
 
 const initialValues = {
   name: '',
   age: '',
+  email: '',
+  career: '',
   image: null,
 }
 

@@ -1,22 +1,35 @@
-import { Box, Button, TextField } from '@mui/material'
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from '../../components/Header'
+import { useStudents } from '../../hooks/useStudents'
 
 const FormAttendance = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
+  const { addStudent } = useStudents()
 
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = async (values) => {
     console.log(values)
+    try {
+      const newStudent = await addStudent(values)
+      console.log('Student created: ', newStudent)
+    } catch (error) {
+      console.error('Error creating student:', error.message)
+    }
   }
 
   return (
     <Box m="20px">
-      <Header
-        title="CREATE ATTENDANCE"
-        subtitle="Create a New Student Attendance"
-      />
+      <Header title="CREATE STUDENT" subtitle="Create a New Student Profile" />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -31,7 +44,7 @@ const FormAttendance = () => {
           handleChange,
           handleSubmit,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             <Box
               display="grid"
               gap="30px"
@@ -40,88 +53,72 @@ const FormAttendance = () => {
                 '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
               }}
             >
+              {/* Date Picker */}
               <TextField
                 fullWidth
                 variant="filled"
-                type="text"
-                label="First Name"
+                type="date"
+                label="Date"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
+                value={values.date}
+                name="date"
+                InputLabelProps={{
+                  shrink: true, // Asegura que la etiqueta no se superponga
+                }}
+                error={!!touched.date && !!errors.date}
+                helperText={touched.date && errors.date}
+                sx={{ gridColumn: 'span 4' }}
+              />
+
+              <FormControl
+                fullWidth
                 sx={{ gridColumn: 'span 2' }}
-              />
-              <TextField
-                fullWidth
                 variant="filled"
-                type="text"
-                label="Last Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
+              >
+                <InputLabel>Status</InputLabel>
+                <Select
+                  value={values.status}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="status"
+                  error={!!touched.status && !!errors.status}
+                >
+                  <MenuItem value="">Select Status</MenuItem>
+                  <MenuItem value="present">Present</MenuItem>
+                  <MenuItem value="absent">Absent</MenuItem>
+                  <MenuItem value="late">Late</MenuItem>
+                </Select>
+                {touched.status && errors.status && (
+                  <Box sx={{ color: 'red', mt: 1 }}>{errors.status}</Box>
+                )}
+              </FormControl>
+
+              <FormControl
+                fullWidth
                 sx={{ gridColumn: 'span 2' }}
-              />
-              <TextField
-                fullWidth
                 variant="filled"
-                type="text"
-                label="Email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
-                sx={{ gridColumn: 'span 4' }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Contact Number"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
-                sx={{ gridColumn: 'span 4' }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Address 1"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address1}
-                name="address1"
-                error={!!touched.address1 && !!errors.address1}
-                helperText={touched.address1 && errors.address1}
-                sx={{ gridColumn: 'span 4' }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Address 2"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address2}
-                name="address2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
-                sx={{ gridColumn: 'span 4' }}
-              />
+              >
+                <InputLabel>Enrollment</InputLabel>
+                <Select
+                  value={values.enrollment_id}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="enrollment_id"
+                  error={!!touched.enrollment_id && !!errors.enrollment_id}
+                >
+                  <MenuItem value="">Select Enrollment</MenuItem>
+                  <MenuItem value="1">Option 1</MenuItem>
+                  <MenuItem value="2">Option 2</MenuItem>
+                </Select>
+                {touched.enrollment_id && errors.enrollment_id && (
+                  <Box sx={{ color: 'red', mt: 1 }}>{errors.enrollment_id}</Box>
+                )}
+              </FormControl>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New Attendance
+                create new student
               </Button>
             </Box>
           </form>
@@ -131,27 +128,19 @@ const FormAttendance = () => {
   )
 }
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/
-
 const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required('required'),
-  lastName: yup.string().required('required'),
-  email: yup.string().email('invalid email').required('required'),
-  contact: yup
-    .string()
-    .matches(phoneRegExp, 'Phone number is not valid')
-    .required('required'),
-  address1: yup.string().required('required'),
-  address2: yup.string().required('required'),
+  status: yup.string().required('required'),
+  enrollment_id: yup.string().required('required'),
+  date: yup
+    .date()
+    .required('Date is required')
+    .typeError('Invalid date format'),
 })
+
 const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  contact: '',
-  address1: '',
-  address2: '',
+  enrollment_id: '',
+  status: '',
+  date: '',
 }
 
 export default FormAttendance

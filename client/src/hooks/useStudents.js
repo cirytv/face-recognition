@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { addStudentApi, getStudentApi } from '../middleware/students'
+import { addStudentApi, getStudentsApi } from '../middleware/students'
 
 export function useStudents() {
   const [loading, setLoading] = useState(true)
@@ -9,7 +9,7 @@ export function useStudents() {
   const getStudents = async () => {
     try {
       setLoading(true)
-      const response = await getStudentApi()
+      const response = await getStudentsApi()
       setLoading(false)
       setStudents(response)
       console.log(response)
