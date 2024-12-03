@@ -4,13 +4,13 @@ import multer from 'multer'
 import path from 'path'
 
 // get all
-export const getStudents = async (req: Request, res: Response) => {
+export const getSubjects = async (req: Request, res: Response) => {
   const students = await Student.findAll()
   res.status(201).send(students)
 }
 
 // get by id
-export const getStudentById = async (req: Request, res: Response) => {
+export const getSubjectsById = async (req: Request, res: Response) => {
   const { id } = req.params
   const student = await Student.findByPk(id)
 
@@ -21,12 +21,12 @@ export const getStudentById = async (req: Request, res: Response) => {
   }
 
   // res.json({ data: student })
-  res.status(200).send({ data: student })
+  res.status(200).send(student)
 }
 
 // create
 
-export const addStudent = async (req: Request, res: Response) => {
+export const addSubjects = async (req: Request, res: Response) => {
   let info = {
     image: req.file.filename,
     name: req.body.name,
@@ -39,7 +39,7 @@ export const addStudent = async (req: Request, res: Response) => {
 }
 
 // update
-export const updateStudent = async (req: Request, res: Response) => {
+export const updateSubjects = async (req: Request, res: Response) => {
   const { id } = req.params
   const student = await Student.findByPk(id)
 
@@ -52,12 +52,11 @@ export const updateStudent = async (req: Request, res: Response) => {
   //   Actualizar
   await student.update(req.body)
   await student.save()
-  // res.json({ data: student })
-  res.send({ data: student })
+  res.send(student)
 }
 
 // delete
-export const deleteStudent = async (req: Request, res: Response) => {
+export const deleteSubjects = async (req: Request, res: Response) => {
   const { id } = req.params
   const student = await Student.findByPk(id)
 

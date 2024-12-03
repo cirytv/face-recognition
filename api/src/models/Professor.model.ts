@@ -1,9 +1,9 @@
 import { Table, Column, Model, DataType, Default } from 'sequelize-typescript'
 
 @Table({
-  tableName: 'students',
+  tableName: 'professors',
 })
-class Student extends Model {
+class Professor extends Model {
   @Column({
     type: DataType.STRING,
   })
@@ -13,10 +13,16 @@ class Student extends Model {
     type: DataType.STRING,
   })
   declare name: string
+
   @Column({
     type: DataType.INTEGER,
   })
   declare age: number
+
+  @Column({
+    type: DataType.STRING,
+  })
+  declare email: string
 }
 
-export default Student
+export default Professor

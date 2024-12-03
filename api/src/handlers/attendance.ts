@@ -6,7 +6,8 @@ export const getAttendance = async (req: Request, res: Response) => {
   const attendance = await Attendance.findAll({
     order: [['id', 'ASC']],
   })
-  res.json({ data: attendance })
+  // res.json({ data: attendance })
+  res.send({ data: attendance })
 }
 
 // get by id
@@ -20,13 +21,15 @@ export const getAttendanceById = async (req: Request, res: Response) => {
     })
   }
   // return item by id
-  res.json({ data: attendance })
+  // res.json({ data: attendance })
+  res.send({ data: attendance })
 }
 
 // create
 export const createAttendance = async (req: Request, res: Response) => {
   const attendance = await Attendance.create(req.body)
-  res.status(201).json({ data: attendance })
+  // res.status(201).json({ data: attendance })
+  res.status(201).send({ data: attendance })
 }
 
 // update
@@ -43,7 +46,8 @@ export const updateAttendance = async (req: Request, res: Response) => {
   //   Actualizar
   await attendance.update(req.body)
   await attendance.save()
-  res.json({ data: attendance })
+  // res.json({ data: attendance })
+  res.send({ data: attendance })
 }
 
 // delete
@@ -59,5 +63,6 @@ export const deleteAttendance = async (req: Request, res: Response) => {
 
   //   delete
   await attendance.destroy()
-  res.json({ data: 'Item Deleted' })
+  // res.json({ data: 'Item Deleted' })
+  res.send({ data: 'Item Deleted' })
 }

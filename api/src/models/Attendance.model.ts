@@ -5,7 +5,7 @@ import { Table, Column, Model, DataType, Default } from 'sequelize-typescript'
 })
 class Attendance extends Model {
   @Column({
-    type: DataType.STRING(100),
+    type: DataType.STRING,
   })
   declare student_id: string
 

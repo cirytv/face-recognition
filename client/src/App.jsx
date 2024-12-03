@@ -26,9 +26,9 @@ function App() {
             <Topbar />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/empresarios" element={<Example />} />
-              <Route path="/empresas" element={<Empresas />} />
               <Route path="/students" element={<Students />} />
+              <Route path="/professors" element={<Example />} />
+              <Route path="/attendances" element={<Empresas />} />
               <Route path="/form/student" element={<FormStudent />} />
               <Route path="/form/professor" element={<FormProfessor />} />
               <Route path="/form/attendance" element={<FormAttendance />} />

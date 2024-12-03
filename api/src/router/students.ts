@@ -2,10 +2,11 @@ import { Router } from 'express'
 import { body, param } from 'express-validator'
 import {
   getStudents,
-  createStudent,
+  addStudent,
   deleteStudent,
   getStudentById,
   updateStudent,
+  upload,
 } from '../handlers/student'
 import { handleInputErrors } from '../middleware/index'
 
@@ -22,20 +23,7 @@ router_students.get(
   getStudentById as any
 )
 
-router_students.post(
-  '/',
-  // Validación
-  body('name').notEmpty().withMessage('name required'),
-  body('age')
-    .isNumeric()
-    .withMessage('Invalid age')
-    .notEmpty()
-    .withMessage('Student age required')
-    .custom((value) => value > 0)
-    .withMessage('Invalid age'),
-  handleInputErrors,
-  createStudent as any
-)
+router_students.post('/', upload, addStudent as any)
 
 router_students.put(
   '/:id',
