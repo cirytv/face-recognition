@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { body, param } from 'express-validator'
 import {
-  getAttendance,
-  createAttendance,
+  getAttendances,
+  addAttendance,
   deleteAttendance,
   getAttendanceById,
   updateAttendance,
@@ -13,7 +13,7 @@ import { handleInputErrors } from '../middleware/index'
 export const router_attendance = Router()
 
 // Routing attendance
-router_attendance.get('/', getAttendance)
+router_attendance.get('/', getAttendances)
 
 router_attendance.get(
   '/:id',
@@ -27,7 +27,7 @@ router_attendance.post(
   // Validación
   body('student_id').notEmpty().withMessage('student_id required'),
   handleInputErrors,
-  createAttendance as any
+  addAttendance as any
 )
 
 router_attendance.put(

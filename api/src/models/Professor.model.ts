@@ -15,11 +15,6 @@ class Professor extends Model {
   declare name: string
 
   @Column({
-    type: DataType.INTEGER,
-  })
-  declare age: number
-
-  @Column({
     type: DataType.STRING,
   })
   declare email: string

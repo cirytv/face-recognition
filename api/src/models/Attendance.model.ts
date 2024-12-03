@@ -1,19 +1,24 @@
 import { Table, Column, Model, DataType, Default } from 'sequelize-typescript'
 
 @Table({
-  tableName: 'attendance',
+  tableName: 'attendances',
 })
 class Attendance extends Model {
   @Column({
     type: DataType.STRING,
   })
-  declare student_id: string
+  declare enrollment_id: string
 
   @Default(new Date('2025-01-01'))
   @Column({
     type: DataType.DATE,
   })
-  declare attendance_date: Date
+  declare date: Date
+
+  @Column({
+    type: DataType.STRING,
+  })
+  declare status: string
 }
 
 export default Attendance

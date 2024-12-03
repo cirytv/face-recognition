@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Attendance from '../models/Attendance.model'
 
 //  get all
-export const getAttendance = async (req: Request, res: Response) => {
+export const getAttendances = async (req: Request, res: Response) => {
   const attendance = await Attendance.findAll({
     order: [['id', 'ASC']],
   })
@@ -26,10 +26,16 @@ export const getAttendanceById = async (req: Request, res: Response) => {
 }
 
 // create
-export const createAttendance = async (req: Request, res: Response) => {
-  const attendance = await Attendance.create(req.body)
-  // res.status(201).json({ data: attendance })
-  res.status(201).send({ data: attendance })
+export const addAttendance = async (req: Request, res: Response) => {
+  let info = {
+    enrollment_id: req.body.enrollment_id,
+    date: req.body.date,
+    status: req.body.status,
+  }
+
+  const attendance = await Attendance.create(info)
+  res.status(200).send(attendance)
+  console.log(attendance)
 }
 
 // update

@@ -3,9 +3,12 @@ import colors from 'colors'
 import db from './config/db'
 import {
   router_attendance,
-  router_classrooms,
+  router_careers,
+  router_enrollments,
+  router_schedules,
   router_professors,
   router_students,
+  router_courses,
 } from './router'
 import cors from 'cors'
 import path from 'path'
@@ -51,7 +54,13 @@ server.use('/api/students', router_students)
 server.use('/api/attendance', router_attendance)
 // professors
 server.use('/api/professors', router_professors)
-// classrooms
-server.use('/api/classrooms', router_classrooms)
+// courses
+server.use('/api/courses', router_courses)
+// enrollments
+server.use('/api/enrollments', router_enrollments)
+// careers
+server.use('/api/careers', router_careers)
+// schedules
+server.use('/api/schedules', router_schedules)
 
 export default server

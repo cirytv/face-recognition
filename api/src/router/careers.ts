@@ -1,46 +1,46 @@
 import { Router } from 'express'
 import { body, param } from 'express-validator'
 import {
-  getClassrooms,
-  addClassroom,
-  deleteClassroom,
-  getClassroomById,
-  updateClassroom,
-} from '../handlers/classrooms'
+  getCareers,
+  addCareer,
+  deleteCareer,
+  getCareerById,
+  updateCareer,
+} from '../handlers/career'
 import { handleInputErrors } from '../middleware/index'
 
 // create routers
-export const router_classrooms = Router()
+export const router_careers = Router()
 
 // Routing attendance
-router_classrooms.get('/', getClassrooms)
+router_careers.get('/', getCareers)
 
-router_classrooms.get(
+router_careers.get(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
   handleInputErrors,
-  getClassroomById as any
+  getCareerById as any
 )
 
-router_classrooms.post(
+router_careers.post(
   '/',
   // Validación
   body('student_id').notEmpty().withMessage('student_id required'),
   handleInputErrors,
-  addClassroom as any
+  addCareer as any
 )
 
-router_classrooms.put(
+router_careers.put(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
   body('student_id').notEmpty().withMessage('student_id required'),
   handleInputErrors,
-  updateClassroom as any
+  updateCareer as any
 )
 
-router_classrooms.delete(
+router_careers.delete(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
   handleInputErrors,
-  deleteClassroom as any
+  deleteCareer as any
 )

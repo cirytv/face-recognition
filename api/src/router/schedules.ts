@@ -1,46 +1,46 @@
 import { Router } from 'express'
 import { body, param } from 'express-validator'
 import {
-  getProfessors,
-  addProfessor,
-  deleteProfessor,
-  getProfessorById,
-  updateProfessor,
-} from '../handlers/professor'
+  getSchedules,
+  addSchedule,
+  deleteSchedule,
+  getScheduleById,
+  updateSchedule,
+} from '../handlers/schedule'
 import { handleInputErrors } from '../middleware/index'
 
 // create routers
-export const router_professors = Router()
+export const router_schedules = Router()
 
 // Routing attendance
-router_professors.get('/', getProfessors)
+router_schedules.get('/', getSchedules)
 
-router_professors.get(
+router_schedules.get(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
   handleInputErrors,
-  getProfessorById as any
+  getScheduleById as any
 )
 
-router_professors.post(
+router_schedules.post(
   '/',
   // Validación
   body('student_id').notEmpty().withMessage('student_id required'),
   handleInputErrors,
-  addProfessor as any
+  addSchedule as any
 )
 
-router_professors.put(
+router_schedules.put(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
   body('student_id').notEmpty().withMessage('student_id required'),
   handleInputErrors,
-  updateProfessor as any
+  updateSchedule as any
 )
 
-router_professors.delete(
+router_schedules.delete(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
   handleInputErrors,
-  deleteProfessor as any
+  deleteSchedule as any
 )

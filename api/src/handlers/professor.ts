@@ -29,7 +29,7 @@ export const addProfessor = async (req: Request, res: Response) => {
   let info = {
     image: req.file.filename,
     name: req.body.name,
-    age: req.body.age,
+    email: req.body.age,
   }
 
   const classroom = await Classroom.create(info)

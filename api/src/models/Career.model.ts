@@ -1,9 +1,9 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript'
 
 @Table({
-  tableName: 'courses',
+  tableName: 'careers',
 })
-class Course extends Model {
+class Career extends Model {
   @Column({
     type: DataType.STRING,
   })
@@ -15,4 +15,4 @@ class Course extends Model {
   declare description: string
 }
 
-export default Course
+export default Career
