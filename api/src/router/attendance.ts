@@ -10,37 +10,29 @@ import {
 import { handleInputErrors } from '../middleware/index'
 
 // create routers
-export const router_attendance = Router()
+export const router_attendances = Router()
 
-// Routing attendance
-router_attendance.get('/', getAttendances)
+// Routing attendances
+router_attendances.get('/', getAttendances)
 
-router_attendance.get(
+router_attendances.get(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
-  handleInputErrors,
   getAttendanceById as any
 )
 
-router_attendance.post(
-  '/',
-  // Validación
-  body('student_id').notEmpty().withMessage('student_id required'),
-  handleInputErrors,
-  addAttendance as any
-)
+router_attendances.post('/', addAttendance as any)
 
-router_attendance.put(
+router_attendances.put(
   '/:id',
-  param('id').isInt().withMessage('Invalid ID'),
-  body('student_id').notEmpty().withMessage('student_id required'),
+  param('id').isInt().withMessage('Not Valid ID'),
   handleInputErrors,
   updateAttendance as any
 )
 
-router_attendance.delete(
+router_attendances.delete(
   '/:id',
-  param('id').isInt().withMessage('Invalid ID'),
+  param('id').isInt().withMessage('Not Valid ID'),
   handleInputErrors,
   deleteAttendance as any
 )

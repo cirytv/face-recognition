@@ -12,35 +12,27 @@ import { handleInputErrors } from '../middleware/index'
 // create routers
 export const router_schedules = Router()
 
-// Routing attendance
+// Routing schedules
 router_schedules.get('/', getSchedules)
 
 router_schedules.get(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
-  handleInputErrors,
   getScheduleById as any
 )
 
-router_schedules.post(
-  '/',
-  // Validación
-  body('student_id').notEmpty().withMessage('student_id required'),
-  handleInputErrors,
-  addSchedule as any
-)
+router_schedules.post('/', addSchedule as any)
 
 router_schedules.put(
   '/:id',
-  param('id').isInt().withMessage('Invalid ID'),
-  body('student_id').notEmpty().withMessage('student_id required'),
+  param('id').isInt().withMessage('Not Valid ID'),
   handleInputErrors,
   updateSchedule as any
 )
 
 router_schedules.delete(
   '/:id',
-  param('id').isInt().withMessage('Invalid ID'),
+  param('id').isInt().withMessage('Not Valid ID'),
   handleInputErrors,
   deleteSchedule as any
 )

@@ -31,6 +31,8 @@ export const addCareer = async (req: Request, res: Response) => {
   }
 
   const career = await Career.create(info)
+  console.log(career)
+
   res.status(200).send(career)
   console.log(career)
 }
@@ -49,6 +51,7 @@ export const updateCareer = async (req: Request, res: Response) => {
   //   Actualizar
   await career.update(req.body)
   await career.save()
+  // res.json({ data: career })
   res.send({ data: career })
 }
 

@@ -6,41 +6,34 @@ import {
   deleteProfessor,
   getProfessorById,
   updateProfessor,
+  upload,
 } from '../handlers/professor'
 import { handleInputErrors } from '../middleware/index'
 
 // create routers
 export const router_professors = Router()
 
-// Routing attendance
+// Routing professors
 router_professors.get('/', getProfessors)
 
 router_professors.get(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
-  handleInputErrors,
   getProfessorById as any
 )
 
-router_professors.post(
-  '/',
-  // Validación
-  body('student_id').notEmpty().withMessage('student_id required'),
-  handleInputErrors,
-  addProfessor as any
-)
+router_professors.post('/', upload, addProfessor as any)
 
 router_professors.put(
   '/:id',
-  param('id').isInt().withMessage('Invalid ID'),
-  body('student_id').notEmpty().withMessage('student_id required'),
+  param('id').isInt().withMessage('Not Valid ID'),
   handleInputErrors,
   updateProfessor as any
 )
 
 router_professors.delete(
   '/:id',
-  param('id').isInt().withMessage('Invalid ID'),
+  param('id').isInt().withMessage('Not Valid ID'),
   handleInputErrors,
   deleteProfessor as any
 )

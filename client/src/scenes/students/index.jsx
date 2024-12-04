@@ -14,7 +14,7 @@ const Students = () => {
 
   useEffect(() => {
     getStudents()
-  })
+  }, [])
 
   const columns = [
     { field: 'id', headerName: 'ID' },

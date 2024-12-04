@@ -3,12 +3,20 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from '../../components/Header'
+import { useCareer } from '../../hooks/useCareers'
 
 const FormCareer = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
+  const { addCareer } = useCareer()
 
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = async (values) => {
     console.log(values)
+    try {
+      const newCareer = await addCareer(values)
+      console.log('Career created: ', newCareer)
+    } catch (error) {
+      console.error('Error creating career:', error.message)
+    }
   }
 
   return (
@@ -28,7 +36,7 @@ const FormCareer = () => {
           handleChange,
           handleSubmit,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             <Box
               display="grid"
               gap="30px"

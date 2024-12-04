@@ -19,7 +19,6 @@ router_students.get('/', getStudents)
 router_students.get(
   '/:id',
   param('id').isInt().withMessage('Invalid ID'),
-  handleInputErrors,
   getStudentById as any
 )
 

@@ -212,6 +212,14 @@ const Sidebar = () => {
             />
 
             <Item
+              title="Enrollment"
+              to="/form/enrollment"
+              icon={<CelebrationIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
               title="example"
               to="/form/example"
               icon={<CelebrationIcon />}

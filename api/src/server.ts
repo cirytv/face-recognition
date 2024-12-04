@@ -2,7 +2,7 @@ import express from 'express'
 import colors from 'colors'
 import db from './config/db'
 import {
-  router_attendance,
+  router_attendances,
   router_careers,
   router_enrollments,
   router_schedules,
@@ -51,7 +51,7 @@ server.use(express.json())
 // students
 server.use('/api/students', router_students)
 // attendances
-server.use('/api/attendance', router_attendance)
+server.use('/api/attendance', router_attendances)
 // professors
 server.use('/api/professors', router_professors)
 // courses

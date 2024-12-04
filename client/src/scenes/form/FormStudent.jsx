@@ -15,6 +15,8 @@ import Header from '../../components/Header'
 import { useStudents } from '../../hooks/useStudents'
 import { Button as MuiButton } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { useCareer } from '../../hooks/useCareers'
+import { useEffect } from 'react'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -31,6 +33,11 @@ const VisuallyHiddenInput = styled('input')({
 const FormStudent = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
   const { addStudent } = useStudents()
+  const { careers, getCareers } = useCareer()
+
+  useEffect(() => {
+    getCareers()
+  }, [])
 
   const handleFormSubmit = async (values) => {
     console.log(values)
@@ -115,11 +122,20 @@ const FormStudent = () => {
               >
                 <InputLabel>Careers</InputLabel>
                 <Select
+                  name="career"
                   value={values.career}
                   onBlur={handleBlur}
                   onChange={handleChange}
                 >
-                  <MenuItem value={1}>Option 1</MenuItem>
+                  {careers?.length > 0 ? (
+                    careers.map((career) => (
+                      <MenuItem key={career.id} value={career.id}>
+                        {career.name}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled>No careers available</MenuItem>
+                  )}
                 </Select>
               </FormControl>
 
@@ -188,7 +204,11 @@ const checkoutSchema = yup.object().shape({
   image: yup.mixed().required('Image is required'),
   name: yup.string().required('required'),
   email: yup.string().email().required('required'),
-  age: yup.number().typeError('must be a number type').required('required'),
+  age: yup
+    .number()
+    .nullable()
+    .positive('must be a positive number')
+    .required('required'),
   career: yup.string().required('required'),
 })
 

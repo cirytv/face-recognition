@@ -13,6 +13,7 @@ import Example from './scenes/example'
 import FormExample from './scenes/form/FormExample'
 import FormCourse from './scenes/form/FormCourse'
 import FormCareer from './scenes/form/FormCareer'
+import FormEnrollment from './scenes/form/FormEnrollment'
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -34,6 +35,7 @@ function App() {
               <Route path="/form/professor" element={<FormProfessor />} />
               <Route path="/form/attendance" element={<FormAttendance />} />
               <Route path="/form/course" element={<FormCourse />} />
+              <Route path="/form/enrollment" element={<FormEnrollment />} />
               <Route path="/form/career" element={<FormCareer />} />
               <Route path="/form/example" element={<FormExample />} />
             </Routes>

@@ -3,17 +3,25 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from '../../components/Header'
+import { useCourses } from '../../hooks/useCourses'
 
 const FormCourse = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
+  const { addCourse } = useCourses()
 
-  const handleFormSubmit = (values) => {
-    console.log(values)
+  const handleFormSubmit = async (values) => {
+    console.log('Form values:', values)
+    try {
+      const newCourse = await addCourse(values)
+      console.log('Course created: ', newCourse)
+    } catch (error) {
+      console.error('Error creating course:', error.message)
+    }
   }
 
   return (
     <Box m="20px">
-      <Header title="CREATE COURSE" subtitle="Crea una nueva curso" />
+      <Header title="CREATE STUDENT" subtitle="Create a New Course Profile" />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -41,7 +49,7 @@ const FormCourse = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Career Name"
+                label="Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.name}
@@ -50,6 +58,7 @@ const FormCourse = () => {
                 helperText={touched.name && errors.name}
                 sx={{ gridColumn: 'span 4' }}
               />
+
               <TextField
                 fullWidth
                 variant="filled"
@@ -66,7 +75,7 @@ const FormCourse = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                create new course
               </Button>
             </Box>
           </form>
@@ -80,6 +89,7 @@ const checkoutSchema = yup.object().shape({
   name: yup.string().required('required'),
   description: yup.string().required('required'),
 })
+
 const initialValues = {
   name: '',
   description: '',

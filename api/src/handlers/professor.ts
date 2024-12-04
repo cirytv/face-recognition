@@ -1,73 +1,82 @@
 import { Request, Response } from 'express'
-import Classroom from '../models/Enrollment.model'
+import Professor from '../models/Professor.model'
 import multer from 'multer'
 import path from 'path'
 
 // get all
 export const getProfessors = async (req: Request, res: Response) => {
-  const students = await Classroom.findAll()
-  res.status(201).send(students)
+  const professors = await Professor.findAll()
+  res.status(201).send(professors)
 }
 
 // get by id
 export const getProfessorById = async (req: Request, res: Response) => {
   const { id } = req.params
-  const classroom = await Classroom.findByPk(id)
+  const professor = await Professor.findByPk(id)
 
-  if (!classroom) {
+  if (!professor) {
     return res.status(404).json({
       error: 'Item Not Found',
     })
   }
 
-  res.status(200).send(classroom)
+  // res.json({ data: professor })
+  res.status(200).send({ data: professor })
 }
 
 // create
 
 export const addProfessor = async (req: Request, res: Response) => {
+  console.log(req.file) // ¿Este log muestra undefined?
+  console.log(req.body)
+  if (!req.file) {
+    return res
+      .status(400)
+      .json({ error: 'File not provided or incorrect field name' })
+  }
   let info = {
     image: req.file.filename,
     name: req.body.name,
-    email: req.body.age,
+    email: req.body.email,
   }
 
-  const classroom = await Classroom.create(info)
-  res.status(200).send(classroom)
-  console.log(classroom)
+  const professor = await Professor.create(info)
+  res.status(200).send(professor)
 }
 
 // update
 export const updateProfessor = async (req: Request, res: Response) => {
   const { id } = req.params
-  const classroom = await Classroom.findByPk(id)
+  const professor = await Professor.findByPk(id)
 
-  if (!classroom) {
+  if (!professor) {
     return res.status(404).json({
       error: 'Item Not Found',
     })
   }
 
   //   Actualizar
-  await classroom.update(req.body)
-  await classroom.save()
-  res.send(classroom)
+  await professor.update(req.body)
+  await professor.save()
+  // res.json({ data: professor })
+  res.send({ data: professor })
 }
 
 // delete
 export const deleteProfessor = async (req: Request, res: Response) => {
   const { id } = req.params
-  const classroom = await Classroom.findByPk(id)
+  const professor = await Professor.findByPk(id)
 
-  if (!classroom) {
+  if (!professor) {
     return res.status(404).json({
       error: 'Item Not Found',
     })
   }
 
   //   delete
-  await classroom.destroy()
-  res.send('Item Deleted')
+  await professor.destroy()
+  // res.json({ data: 'Item Deleted' })
+  res.send({ data: 'Item Deleted' })
 }
 
 // multer upload image

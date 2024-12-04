@@ -11,25 +11,38 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from '../../components/Header'
+import { useEnrollments } from '../../hooks/useEnrollments'
 import { useStudents } from '../../hooks/useStudents'
+import { useCourses } from '../../hooks/useCourses'
+import { useEffect } from 'react'
 
-const FormAttendance = () => {
+const FormEnrollment = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
-  const { addStudent } = useStudents()
+  const { addEnrollment } = useEnrollments()
+  const { courses, getCourses } = useCourses()
+  const { students, getStudents } = useStudents()
 
   const handleFormSubmit = async (values) => {
     console.log(values)
     try {
-      const newStudent = await addStudent(values)
-      console.log('Student created: ', newStudent)
+      const newEnrollment = await addEnrollment(values)
+      console.log('Enrollment created: ', newEnrollment)
     } catch (error) {
-      console.error('Error creating attendance:', error.message)
+      console.error('Error creating enrollment:', error.message)
     }
   }
+  useEffect(() => {
+    getStudents()
+    getCourses()
+  }, [])
+
+  useEffect(() => {
+    getCourses()
+  }, [])
 
   return (
     <Box m="20px">
-      <Header title="CREATE STUDENT" subtitle="Create a New Student Profile" />
+      <Header title="CREATE ENROLLMENT" subtitle="Create a New Enrollment" />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -57,17 +70,17 @@ const FormAttendance = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                type="date"
-                label="Date"
+                type="enrollment_date"
+                label="Enrollment Date"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.date}
-                name="date"
+                value={values.enrollment_date}
+                name="enrollment_date"
                 InputLabelProps={{
                   shrink: true, // Asegura que la etiqueta no se superponga
                 }}
-                error={!!touched.date && !!errors.date}
-                helperText={touched.date && errors.date}
+                error={!!touched.enrollment_date && !!errors.enrollment_date}
+                helperText={touched.enrollment_date && errors.enrollment_date}
                 sx={{ gridColumn: 'span 4' }}
               />
 
@@ -76,22 +89,23 @@ const FormAttendance = () => {
                 sx={{ gridColumn: 'span 2' }}
                 variant="filled"
               >
-                <InputLabel>Status</InputLabel>
+                <InputLabel>Courses</InputLabel>
                 <Select
-                  value={values.status}
-                  onChange={handleChange}
+                  name="course_id"
+                  value={values.course_id}
                   onBlur={handleBlur}
-                  name="status"
-                  error={!!touched.status && !!errors.status}
+                  onChange={handleChange}
                 >
-                  <MenuItem value="">Select Status</MenuItem>
-                  <MenuItem value="present">Present</MenuItem>
-                  <MenuItem value="absent">Absent</MenuItem>
-                  <MenuItem value="late">Late</MenuItem>
+                  {courses?.length > 0 ? (
+                    students.map((course) => (
+                      <MenuItem key={course.id} value={course.id}>
+                        {course.name}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled>No course available</MenuItem>
+                  )}
                 </Select>
-                {touched.status && errors.status && (
-                  <Box sx={{ color: 'red', mt: 1 }}>{errors.status}</Box>
-                )}
               </FormControl>
 
               <FormControl
@@ -99,26 +113,28 @@ const FormAttendance = () => {
                 sx={{ gridColumn: 'span 2' }}
                 variant="filled"
               >
-                <InputLabel>Enrollment</InputLabel>
+                <InputLabel>Students</InputLabel>
                 <Select
-                  value={values.enrollment_id}
-                  onChange={handleChange}
+                  name="student_id"
+                  value={values.student_id}
                   onBlur={handleBlur}
-                  name="enrollment_id"
-                  error={!!touched.enrollment_id && !!errors.enrollment_id}
+                  onChange={handleChange}
                 >
-                  <MenuItem value="">Select Enrollment</MenuItem>
-                  <MenuItem value="1">Option 1</MenuItem>
-                  <MenuItem value="2">Option 2</MenuItem>
+                  {students?.length > 0 ? (
+                    students.map((student) => (
+                      <MenuItem key={student.id} value={student.id}>
+                        {student.name}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled>No student available</MenuItem>
+                  )}
                 </Select>
-                {touched.enrollment_id && errors.enrollment_id && (
-                  <Box sx={{ color: 'red', mt: 1 }}>{errors.enrollment_id}</Box>
-                )}
               </FormControl>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                create new student
+                create new enrollment
               </Button>
             </Box>
           </form>
@@ -129,18 +145,24 @@ const FormAttendance = () => {
 }
 
 const checkoutSchema = yup.object().shape({
-  status: yup.string().required('required'),
-  enrollment_id: yup.string().required('required'),
-  date: yup
+  student_id: yup
+    .number()
+    .positive('must be a positive number')
+    .required('required'),
+  course_id: yup
+    .number()
+    .positive('must be a positive number')
+    .required('required'),
+  enrollment_date: yup
     .date()
     .required('Date is required')
     .typeError('Invalid date format'),
 })
 
 const initialValues = {
-  enrollment_id: '',
-  status: '',
-  date: '',
+  student_id: '',
+  course_id: '',
+  enrollment_date: '',
 }
 
-export default FormAttendance
+export default FormEnrollment
