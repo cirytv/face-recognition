@@ -4,12 +4,12 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import { useStudents } from '../../hooks/useStudents'
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom' // Importa para navegación
+import { Link } from 'react-router-dom' // Importa para navegación
 
 const Students = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
-  const navigate = useNavigate() // Para manejar la navegación
+  // const navigate = useNavigate() // Para manejar la navegación
   const { students, getStudents } = useStudents()
 
   useEffect(() => {
@@ -65,6 +65,28 @@ const Students = () => {
         />
       ),
     },
+    {
+      field: 'phone',
+      headerName: 'Phone',
+      flex: 1,
+      cellClassName: 'phone-column--cell',
+      renderCell: (params) => {
+        return (
+          <Link
+            to={`https://wa.me/${params.value}`}
+            style={{
+              color: colors.greenAccent[300],
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={(e) => (e.target.style.textDecoration = 'underline')}
+            onMouseLeave={(e) => (e.target.style.textDecoration = 'none')}
+          >
+            Click open Whatsapp chat
+          </Link>
+        )
+      },
+    },
   ]
 
   return (
@@ -81,6 +103,9 @@ const Students = () => {
             borderBottom: 'none',
           },
           '& .name-column--cell': {
+            color: colors.greenAccent[300],
+          },
+          '& .phone-column--cell': {
             color: colors.greenAccent[300],
           },
           '& .MuiDataGrid-columnHeaders': {
@@ -102,7 +127,7 @@ const Students = () => {
         <DataGrid
           rows={students || []}
           columns={columns}
-          onRowClick={(params) => navigate(`/students/${params.id}`)}
+          // onRowClick={(params) => navigate(`/students/${params.id}`)}
         />
       </Box>
     </Box>

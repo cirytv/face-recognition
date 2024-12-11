@@ -13,6 +13,7 @@ import {
 import cors from 'cors'
 import path from 'path'
 import fs from 'fs'
+import { router_prolog } from './router/prolog'
 
 // connect to database
 export async function connectDB() {
@@ -62,5 +63,7 @@ server.use('/api/enrollments', router_enrollments)
 server.use('/api/careers', router_careers)
 // schedules
 server.use('/api/schedules', router_schedules)
+// prolog
+server.use('/api/prolog', router_prolog)
 
 export default server

@@ -26,14 +26,6 @@ router_enrollments.post('/', addEnrollment as any)
 router_enrollments.put(
   '/:id',
   param('id').isInt().withMessage('Not Valid ID'),
-  body('name').notEmpty().withMessage('Enrollment name cant be empty'),
-  body('age')
-    .isNumeric()
-    .withMessage('Valor no válido')
-    .notEmpty()
-    .withMessage('Product Price Cant Be Empty')
-    .custom((value) => value > 0)
-    .withMessage('Invalid age'),
   handleInputErrors,
   updateEnrollment as any
 )

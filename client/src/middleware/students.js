@@ -10,6 +10,7 @@ export const addStudentApi = async (student) => {
   formData.append('image', student.image)
   formData.append('name', student.name)
   formData.append('email', student.email)
+  formData.append('phone', student.phone)
   formData.append('age', student.age)
   formData.append('career', student.career)
 

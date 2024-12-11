@@ -16,14 +16,19 @@ import { useStudents } from '../../hooks/useStudents'
 import { useCourses } from '../../hooks/useCourses'
 import { useEffect } from 'react'
 
-const FormEnrollment = () => {
+const FormCourse = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
   const { addEnrollment } = useEnrollments()
   const { courses, getCourses } = useCourses()
   const { students, getStudents } = useStudents()
 
+  useEffect(() => {
+    getStudents()
+    getCourses()
+  }, [])
+
   const handleFormSubmit = async (values) => {
-    console.log(values)
+    console.log('Form values:', values)
     try {
       const newEnrollment = await addEnrollment(values)
       console.log('Enrollment created: ', newEnrollment)
@@ -31,15 +36,6 @@ const FormEnrollment = () => {
       console.error('Error creating enrollment:', error.message)
     }
   }
-  useEffect(() => {
-    getStudents()
-    getCourses()
-  }, [])
-
-  useEffect(() => {
-    getCourses()
-  }, [])
-
   return (
     <Box m="20px">
       <Header title="CREATE ENROLLMENT" subtitle="Create a New Enrollment" />
@@ -57,7 +53,7 @@ const FormEnrollment = () => {
           handleChange,
           handleSubmit,
         }) => (
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <form onSubmit={handleSubmit}>
             <Box
               display="grid"
               gap="30px"
@@ -70,7 +66,7 @@ const FormEnrollment = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                type="enrollment_date"
+                type="date"
                 label="Enrollment Date"
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -97,7 +93,7 @@ const FormEnrollment = () => {
                   onChange={handleChange}
                 >
                   {courses?.length > 0 ? (
-                    students.map((course) => (
+                    courses.map((course) => (
                       <MenuItem key={course.id} value={course.id}>
                         {course.name}
                       </MenuItem>
@@ -134,7 +130,7 @@ const FormEnrollment = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                create new enrollment
+                create new course
               </Button>
             </Box>
           </form>
@@ -153,10 +149,7 @@ const checkoutSchema = yup.object().shape({
     .number()
     .positive('must be a positive number')
     .required('required'),
-  enrollment_date: yup
-    .date()
-    .required('Date is required')
-    .typeError('Invalid date format'),
+  date: yup.date(),
 })
 
 const initialValues = {
@@ -165,4 +158,4 @@ const initialValues = {
   enrollment_date: '',
 }
 
-export default FormEnrollment
+export default FormCourse

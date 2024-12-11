@@ -31,6 +31,7 @@ export const addStudent = async (req: Request, res: Response) => {
     image: req.file.filename,
     name: req.body.name,
     email: req.body.email,
+    phone: req.body.phone,
     age: req.body.age,
     career: req.body.career,
   }

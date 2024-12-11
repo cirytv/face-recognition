@@ -20,6 +20,11 @@ class Student extends Model {
   declare email: string
 
   @Column({
+    type: DataType.STRING,
+  })
+  declare phone: string
+
+  @Column({
     type: DataType.INTEGER,
   })
   declare age: number

@@ -101,6 +101,21 @@ const FormStudent = () => {
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: 'span 4' }}
               />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Phone Number"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.phone}
+                name="phone"
+                error={!!touched.phone && !!errors.phone}
+                helperText={touched.phone && errors.phone}
+                sx={{ gridColumn: 'span 4' }}
+              />
+
               <TextField
                 fullWidth
                 variant="filled"
@@ -200,10 +215,17 @@ const FormStudent = () => {
   )
 }
 
+const phoneRegExp =
+  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/
+
 const checkoutSchema = yup.object().shape({
   image: yup.mixed().required('Image is required'),
   name: yup.string().required('required'),
   email: yup.string().email().required('required'),
+  phone: yup
+    .string()
+    .matches(phoneRegExp, 'Phone number is not valid')
+    .required('required'),
   age: yup
     .number()
     .nullable()
@@ -217,6 +239,7 @@ const initialValues = {
   age: '',
   email: '',
   career: '',
+  phone: '',
   image: null,
 }
 

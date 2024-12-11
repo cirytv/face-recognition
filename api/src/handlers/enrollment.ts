@@ -22,7 +22,6 @@ export const getEnrollmentById = async (req: Request, res: Response) => {
 }
 
 // create
-
 export const addEnrollment = async (req: Request, res: Response) => {
   let info = {
     student_id: req.body.student_id,

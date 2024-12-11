@@ -29,8 +29,10 @@ export const getAttendanceById = async (req: Request, res: Response) => {
 export const addAttendance = async (req: Request, res: Response) => {
   let info = {
     enrollment_id: req.body.enrollment_id,
+    schedule_id: req.body.schedule_id,
     date: req.body.date,
-    status: req.body.status,
+    arrival_time: req.body.arrival_time,
+    departure_time: req.body.departure_time,
   }
 
   const attendance = await Attendance.create(info)
