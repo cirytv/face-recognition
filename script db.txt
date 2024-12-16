@@ -1,0 +1,87 @@
+INSERT INTO attendances (id, enrollment_id, schedule_id, status, "createdAt", "updatedAt") VALUES
+(1, 1, 1, 'late', current_timestamp, current_timestamp),
+(2, 1, 1, 'present', current_timestamp, current_timestamp),
+(3, 1, 2, 'present', current_timestamp, current_timestamp),
+(4, 1, 2, 'present', current_timestamp, current_timestamp),
+(5, 2, 2, 'present', current_timestamp, current_timestamp),
+(6, 2, 2, 'late', current_timestamp, current_timestamp),
+(7, 3, 3, 'present', current_timestamp, current_timestamp),
+(8, 3, 3, 'late', current_timestamp, current_timestamp),
+(9, 4, 1, 'present', current_timestamp, current_timestamp),
+(10, 4, 2, 'absent', current_timestamp, current_timestamp);
+
+INSERT INTO careers (id, name, description, "createdAt", "updatedAt") VALUES
+(1, 'Computer Science', 'Study of algorithms and programming', current_timestamp, current_timestamp),
+(2, 'Physics', 'Study of matter and its motion', current_timestamp, current_timestamp),
+(3, 'Chemistry', 'Study of substances and their reactions', current_timestamp, current_timestamp),
+(4, 'Biology', 'Study of life and living organisms', current_timestamp, current_timestamp),
+(5, 'Mathematics', 'Study of numbers, quantities, and shapes', current_timestamp, current_timestamp),
+(6, 'Economics', 'Study of production, distribution, and consumption of goods and services', current_timestamp, current_timestamp),
+(7, 'Psychology', 'Study of mind and behavior', "createdAt", "updatedAt"),
+(8, 'History', 'Study of past human events', current_timestamp, current_timestamp),
+(9, 'Literature', 'Study of written works', current_timestamp, current_timestamp),
+(10, 'Art', 'Study of visual arts', current_timestamp, current_timestamp);
+
+INSERT INTO courses (id, name, description, "createdAt", "updatedAt") VALUES
+(1, 'Introduction to Programming', 'Basics of programming with Python', current_timestamp, current_timestamp),
+(2, 'Calculus I', 'Fundamentals of differential calculus', current_timestamp, current_timestamp),
+(3, 'General Chemistry', 'Introduction to chemical principles', current_timestamp, current_timestamp),
+(4, 'Biology 101', 'Basic concepts of biology', current_timestamp, current_timestamp),
+(5, 'Discrete Mathematics', 'Mathematics for computer science', current_timestamp, current_timestamp),
+(6, 'Microeconomics', 'Study of small economic units', current_timestamp, current_timestamp),
+(7, 'Intro to Psychology', 'Overview of psychological methods and theories', current_timestamp, current_timestamp),
+(8, 'World History', 'Survey of global historical events', current_timestamp, current_timestamp),
+(9, 'English Literature', 'Analysis of English literary works', current_timestamp, current_timestamp),
+(10, 'Art History', 'Overview of art history', current_timestamp, current_timestamp);
+
+INSERT INTO enrollments (id, student_id, course_id, enrollment_date, "createdAt", "updatedAt") VALUES
+(1, 1, 1, '2024-01-01', current_timestamp, current_timestamp),
+(2, 2, 2, '2024-01-01', current_timestamp, current_timestamp),
+(3, 3, 3, '2024-01-01', current_timestamp, current_timestamp),
+(4, 4, 4, '2024-01-01', current_timestamp, current_timestamp),
+(5, 5, 5, '2024-01-01', current_timestamp, current_timestamp),
+(6, 6, 6, '2024-01-01', current_timestamp, current_timestamp),
+(7, 7, 7, '2024-01-01', current_timestamp, current_timestamp),
+(8, 8, 8, '2024-01-01', current_timestamp, current_timestamp),
+(9, 9, 9, '2024-01-01', current_timestamp, current_timestamp),
+(10, 10, 10, '2024-01-01', current_timestamp, current_timestamp);
+
+INSERT INTO professors (id, image, name, email, "createdAt", "updatedAt") VALUES
+(1, 'professor1.jpg', 'Prof. Alpha', 'alpha@example.com', current_timestamp, current_timestamp),
+(2, 'professor2.jpg', 'Prof. Beta', 'beta@example.com', current_timestamp, current_timestamp),
+(3, 'professor3.jpg', 'Prof. Gamma', 'gamma@example.com', current_timestamp, current_timestamp),
+(4, 'professor4.jpg', 'Prof. Delta', 'delta@example.com', current_timestamp, current_timestamp),
+(5, 'professor5.jpg', 'Prof. Epsilon', 'epsilon@example.com', current_timestamp, current_timestamp),
+(6, 'professor6.jpg', 'Prof. Zeta', 'zeta@example.com', current_timestamp, current_timestamp),
+(7, 'professor7.jpg', 'Prof. Eta', 'eta@example.com', current_timestamp, current_timestamp),
+(8, 'professor8.jpg', 'Prof. Theta', 'theta@example.com', current_timestamp, current_timestamp),
+(9, 'professor9.jpg', 'Prof. Iota', 'iota@example.com', current_timestamp, current_timestamp),
+(10, 'professor10.jpg', 'Prof. Kappa', 'kappa@example.com', current_timestamp, current_timestamp);
+
+INSERT INTO schedules (id, name, description, course_id, professor_id, day_of_week, start_time, end_time, "createdAt", "updatedAt") VALUES
+(1, 'Schedule 1', 'Morning class', 1, 1, '2024-12-15', '09:57:00', '23:57:00', current_timestamp, current_timestamp),
+(2, 'Schedule 2', 'Afternoon class', 2, 2, '2024-12-16', '13:00:00', '17:00:00', current_timestamp, current_timestamp),
+(3, 'Schedule 3', 'Evening session', 3, 3, '2024-12-17', '18:00:00', '21:00:00', current_timestamp, current_timestamp),
+(4, 'Schedule 4', 'Lab work', 4, 4, '2024-12-18', '10:00:00', '12:00:00', current_timestamp, current_timestamp),
+(5, 'Schedule 5', 'Seminar', 5, 5, '2024-12-19', '15:00:00', '16:30:00', current_timestamp, current_timestamp),
+(6, 'Schedule 6', 'Workshop', 6, 6, '2024-12-20', '14:00:00', '16:00:00', current_timestamp, current_timestamp),
+(7, 'Schedule 7', 'Project Meeting', 7, 7, '2024-12-21', '09:00:00', '10:30:00', current_timestamp, current_timestamp),
+(8, 'Schedule 8', 'Tutorial', 8, 8, '2024-12-22', '11:00:00', '12:30:00', current_timestamp, current_timestamp),
+(9, 'Schedule 9', 'Lecture', 9, 9, '2024-12-23', '16:00:00', '18:00:00', current_timestamp, current_timestamp),
+(10, 'Schedule 10', 'Review Session', 10, 10, '2024-12-24', '17:00:00', '19:00:00', current_timestamp, current_timestamp);
+
+INSERT INTO students (id, image, name, email, phone, age, career, "createdAt", "updatedAt") VALUES
+(1, 'student1.jpg', 'John Doe', 'john@example.com', '1234567890', 20, 1, current_timestamp, current_timestamp),
+(2, 'student2.jpg', 'Jane Smith', 'jane@example.com', '9876543210', 21, 2, current_timestamp, current_timestamp),
+(3, 'student3.jpg', 'Bob Johnson', 'bob@example.com', '5551234567', 19, 3, current_timestamp, current_timestamp),
+(4, 'student4.jpg', 'Alice Brown', 'alice@example.com', '5559876543', 22, 4, current_timestamp, current_timestamp),
+(5, 'student5.jpg', 'Charlie Davis', 'charlie@example.com', '5555555555', 23, 5, current_timestamp, current_timestamp),
+(6, 'student6.jpg', 'Eva White', 'eva@example.com', '5554443333', 20, 6, current_timestamp, current_timestamp),
+(7, 'student7.jpg', 'Frank Miller', 'frank@example.com', '5556667777', 21, 7, current_timestamp, current_timestamp),
+(8, 'student8.jpg', 'Grace Green', 'grace@example.com', '5558889999', 18, 8, current_timestamp, current_timestamp),
+(9, 'student9.jpg', 'Harry Black', 'harry@example.com', '5552221111', 19, 9, current_timestamp, current_timestamp),
+(10, 'student10.jpg', 'Ivy Gray', 'ivy@example.com', '5553332222', 24, 10, current_timestamp, current_timestamp);
+
+
+
+

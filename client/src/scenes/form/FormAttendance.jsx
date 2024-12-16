@@ -81,6 +81,7 @@ const FormAttendance = () => {
                   <MenuItem value="">Select Status</MenuItem>
                   <MenuItem value="present">Present</MenuItem>
                   <MenuItem value="late">Late</MenuItem>
+                  <MenuItem value="absent">Absent</MenuItem>
                 </Select>
                 {touched.status && errors.status && (
                   <Box sx={{ color: 'red', mt: 1 }}>{errors.status}</Box>

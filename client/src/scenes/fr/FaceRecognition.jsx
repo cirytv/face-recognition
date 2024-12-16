@@ -74,7 +74,7 @@ const FaceRecognition = () => {
   const handleFormSubmit = async (values) => {
     const valuesWithStatus = {
       ...values,
-      status: 'presente', // Añadimos el campo status con el valor 'presente'
+      status: 'present', // Añadimos el campo status con el valor 'present'
     }
     console.log(`schedule_id: ${valuesWithStatus.schedule_id}`)
     console.log(`enrollment_id: ${valuesWithStatus.enrollment_id}`)

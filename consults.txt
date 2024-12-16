@@ -1,0 +1,23 @@
+student(X,Y).
+
+was_present(StudentId, ScheduleId) retorna true si el estudainte estaba presende en un horario
+was_present(1, 1).
+was_present(2, 3).
+
+
+students_present_on_schedule(ScheduleId, Students) retorna una lista con los students presents en un horario
+students_present_on_schedule(1, Students).
+students_present_on_schedule(3, Students).
+
+
+student_attendance(StudentId, Attendances) retorna el id del attendance y su status
+student_attendance(1, Attendances).
+student_attendance(4, Attendances).
+
+was_late(StudentId, ScheduleId) retorna true si el estudiante estaba tarde en ese horario
+was_late(1, 1).
+was_late(5, 3).
+
+student_status(StudentId, ScheduleId, Status) retorna los status de ese estudiante en un horario
+student_status(1, 2, Status).
+student_status(3, 4, Status).
