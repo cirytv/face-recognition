@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { addStudentApi, getStudentsApi } from '../middleware/students'
+import {
+  addStudentApi,
+  getStudentByIdApi,
+  getStudentsApi,
+} from '../middleware/students'
 
 export function useStudents() {
   const [loading, setLoading] = useState(true)
@@ -31,11 +35,26 @@ export function useStudents() {
     }
   }
 
+  const getStudentById = async (id) => {
+    try {
+      setLoading(true)
+      const result = await getStudentByIdApi(id)
+      setLoading(false)
+      return result
+    } catch (error) {
+      setLoading(false)
+      setError(error)
+      console.error('Error getting student:', error)
+      return null // Maneja el error retornando null o un valor por defecto
+    }
+  }
+
   return {
     loading,
     error,
     students,
     getStudents,
+    getStudentById,
     addStudent,
   }
 }

@@ -1,10 +1,5 @@
 import axios from 'axios'
 
-// export const getStudentsApi = async () => {
-//   const { data } = await apiClient.get('/students')
-//   return data
-// }
-
 export const addStudentApi = async (student) => {
   const formData = new FormData()
   formData.append('image', student.image)
@@ -36,7 +31,7 @@ export const getStudentsApi = async () => {
 }
 
 export const getStudentByIdApi = async (id) => {
-  const { data } = await axios.get(`http://localhost:4000/api/students${id}`, {
+  const { data } = await axios.get(`http://localhost:4000/api/students/${id}`, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

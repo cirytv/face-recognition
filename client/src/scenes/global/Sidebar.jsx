@@ -120,6 +120,14 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
+            <Item
+              title="Face Recognition"
+              to="/face-recognition"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -191,6 +199,14 @@ const Sidebar = () => {
               title="Asistencias"
               to="/form/attendance"
               icon={<StorefrontIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Horario"
+              to="/form/schedule"
+              icon={<CelebrationIcon />}
               selected={selected}
               setSelected={setSelected}
             />

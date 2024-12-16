@@ -6,13 +6,13 @@ import { usePrologs } from '../../hooks/usePrologs'
 
 const Dashboard = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
-  const { prologQuery } = usePrologs()
+  const { prologQuery, responses } = usePrologs()
 
   const handleFormSubmit = async (values) => {
     console.log('Form values:', values)
     try {
-      const newMessage = await prologQuery(values)
-      console.log('Prolog Response: ', newMessage)
+      await prologQuery(values)
+      console.log('Prolog Response: ', responses)
     } catch (error) {
       console.error('Error:', error.message)
     }

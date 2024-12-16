@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, Default } from 'sequelize-typescript'
+import { Table, Column, Model, DataType } from 'sequelize-typescript'
 
 @Table({
   tableName: 'attendances',
@@ -14,21 +14,10 @@ class Attendance extends Model {
   })
   declare schedule_id: number
 
-  @Default(new Date('2025-01-01'))
   @Column({
-    type: DataType.DATE,
+    type: DataType.STRING,
   })
-  declare date: Date
-
-  @Column({
-    type: DataType.TIME,
-  })
-  declare arrival_time: string // Hora de llegada
-
-  @Column({
-    type: DataType.TIME,
-  })
-  declare departure_time: string // Hora de salida
+  declare status: string // Hora de llegada
 }
 
 export default Attendance

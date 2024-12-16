@@ -4,7 +4,7 @@ import Schedule from '../models/Schedule.model'
 // get all
 export const getSchedules = async (req: Request, res: Response) => {
   const schedules = await Schedule.findAll()
-  res.status(201).send(schedules)
+  res.status(200).send(schedules)
 }
 
 // get by id
@@ -35,7 +35,7 @@ export const addSchedule = async (req: Request, res: Response) => {
   }
 
   const schedule = await Schedule.create(info)
-  res.status(200).send(schedule)
+  res.status(201).send(schedule)
   console.log(schedule)
 }
 

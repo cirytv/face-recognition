@@ -25,19 +25,19 @@ class Schedule extends Model {
   declare professor_id: number
 
   @Column({
-    type: DataType.STRING,
-  })
-  declare day_of_week: string
-
-  @Column({
     type: DataType.DATE,
   })
-  declare start_time: Date
+  declare day_of_week: Date // Ahora es de tipo Date para representar la fecha de la clase
 
   @Column({
-    type: DataType.DATE,
+    type: DataType.TIME,
   })
-  declare end_time: Date
+  declare start_time: string
+
+  @Column({
+    type: DataType.TIME,
+  })
+  declare end_time: string
 }
 
 export default Schedule

@@ -52,7 +52,7 @@ server.use(express.json())
 // students
 server.use('/api/students', router_students)
 // attendances
-server.use('/api/attendance', router_attendances)
+server.use('/api/attendances', router_attendances)
 // professors
 server.use('/api/professors', router_professors)
 // courses

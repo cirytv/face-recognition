@@ -14,6 +14,8 @@ import FormExample from './scenes/form/FormExample'
 import FormCourse from './scenes/form/FormCourse'
 import FormCareer from './scenes/form/FormCareer'
 import FormEnrollment from './scenes/form/FormEnrollment'
+import FaceRecognition from './scenes/fr/faceRecognition'
+import FormSchedule from './scenes/form/FormSchedule'
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -28,12 +30,14 @@ function App() {
             <Topbar />
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/face-recognition" element={<FaceRecognition />} />
               <Route path="/students" element={<Students />} />
               <Route path="/professors" element={<Example />} />
               <Route path="/attendances" element={<Empresas />} />
               <Route path="/form/student" element={<FormStudent />} />
               <Route path="/form/professor" element={<FormProfessor />} />
               <Route path="/form/attendance" element={<FormAttendance />} />
+              <Route path="/form/schedule" element={<FormSchedule />} />
               <Route path="/form/course" element={<FormCourse />} />
               <Route path="/form/enrollment" element={<FormEnrollment />} />
               <Route path="/form/career" element={<FormCareer />} />

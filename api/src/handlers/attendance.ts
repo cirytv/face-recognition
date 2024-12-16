@@ -30,13 +30,11 @@ export const addAttendance = async (req: Request, res: Response) => {
   let info = {
     enrollment_id: req.body.enrollment_id,
     schedule_id: req.body.schedule_id,
-    date: req.body.date,
-    arrival_time: req.body.arrival_time,
-    departure_time: req.body.departure_time,
+    status: req.body.status,
   }
 
   const attendance = await Attendance.create(info)
-  res.status(200).send(attendance)
+  res.status(201).send(attendance)
   console.log(attendance)
 }
 

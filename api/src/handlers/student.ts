@@ -21,7 +21,7 @@ export const getStudentById = async (req: Request, res: Response) => {
   }
 
   // res.json({ data: student })
-  res.status(200).send({ data: student })
+  res.status(200).send(student)
 }
 
 // create
