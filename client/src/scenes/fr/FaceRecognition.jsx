@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
   styled,
@@ -14,6 +16,10 @@ import * as faceapi from 'face-api.js'
 import { useEffect, useRef, useState } from 'react'
 import { Button as MuiButton } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { useEnrollments } from '../../hooks/useEnrollments'
+import { useSchedules } from '../../hooks/useSchedules'
+import { useCourses } from '../../hooks/useCourses'
+import { useAttendances } from '../../hooks/useAttendances'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -30,6 +36,10 @@ const VisuallyHiddenInput = styled('input')({
 const FaceRecognition = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
   const { students, getStudents, getStudentById } = useStudents()
+  const { enrollments, getEnrollments } = useEnrollments()
+  const { schedules, getSchedules } = useSchedules()
+  const { courses, getCourses } = useCourses()
+  const { addAttendance } = useAttendances()
 
   const canvasRef1 = useRef(null)
   const canvasRef2 = useRef(null)
@@ -38,9 +48,13 @@ const FaceRecognition = () => {
   const [showRefImage, setShowRefImage] = useState(false)
   const [showImageToCompare, setShowImageToCompare] = useState(false)
   const [studentImage, setStudentImage] = useState('') // Estado para la URL de la imagen de referencia
+  const [selectedStudentId, setSelectedStudentId] = useState('') // Nuevo estado para el ID del estudiante seleccionado
 
   useEffect(() => {
     getStudents() // Obtener la lista de estudiantes al montar el componente
+    getEnrollments()
+    getSchedules()
+    getCourses()
     Promise.all([
       faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
       faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -48,7 +62,24 @@ const FaceRecognition = () => {
     ])
   }, [])
 
+  const handleCreateAttendance = async (values) => {
+    try {
+      const newAttendance = await addAttendance(values)
+      console.log('Attendance created: ', newAttendance)
+    } catch (error) {
+      console.error('Error creating attendance:', error.message)
+    }
+  }
+
   const handleFormSubmit = async (values) => {
+    const valuesWithStatus = {
+      ...values,
+      status: 'presente', // Añadimos el campo status con el valor 'presente'
+    }
+    console.log(`schedule_id: ${valuesWithStatus.schedule_id}`)
+    console.log(`enrollment_id: ${valuesWithStatus.enrollment_id}`)
+    console.log(`status: ${valuesWithStatus.status}`)
+
     try {
       // Aquí cargamos las imágenes para el reconocimiento facial
       const [refImage, imageToCompare] = await Promise.all([
@@ -121,6 +152,9 @@ const FaceRecognition = () => {
                   label.split(' ')[0]
                 } with ${matchPercentage.toFixed(2)}% match.`
               )
+
+              // addAttendance
+              handleCreateAttendance(valuesWithStatus)
             }
             drawOnCanvas(
               canvas2,
@@ -137,10 +171,58 @@ const FaceRecognition = () => {
     }
   }
 
+  const [selectedScheduleId, setSelectedScheduleId] = useState('')
+
+  const handleEnrollmentSelect = async (event, setFieldValue) => {
+    const selectedId = event.target.value
+    setFieldValue('enrollment_id', selectedId)
+
+    // Find the selected enrollment
+    const selectedEnrollment = enrollments.find(
+      (e) => e.id === parseInt(selectedId)
+    )
+    if (selectedEnrollment) {
+      // Filter schedules by the course_id of the selected enrollment
+      const now = new Date()
+      const currentSchedules = schedules.filter((schedule) => {
+        const scheduleDate = new Date() // We use the current date for simplicity
+        const [hours, minutes, seconds] = schedule.start_time
+          .split(':')
+          .map(Number)
+        const [endHours, endMinutes, endSeconds] = schedule.end_time
+          .split(':')
+          .map(Number)
+
+        scheduleDate.setHours(hours, minutes, seconds, 0)
+        const endDate = new Date(scheduleDate)
+        endDate.setHours(endHours, endMinutes, endSeconds, 0)
+
+        return (
+          schedule.course_id === selectedEnrollment.course_id &&
+          now >= scheduleDate &&
+          now <= endDate
+        )
+      })
+
+      if (currentSchedules.length > 0) {
+        // Here we're just selecting the first schedule that matches, but you might want to show all or let the user choose
+        const firstSchedule = currentSchedules[0]
+        console.log('Schedule for the current time:', firstSchedule)
+        setFieldValue('schedule_id', firstSchedule.id)
+        setSelectedScheduleId(firstSchedule.id)
+      } else {
+        // No schedule matches current time
+        setFieldValue('schedule_id', '')
+        setSelectedScheduleId('')
+        console.log('No schedule available at the current time or student')
+      }
+    }
+  }
   // Aquí ajustamos el onChange para manejar la selección asincrónicamente
   const handleStudentSelect = async (event, setFieldValue) => {
     const selectedId = event.target.value
     setFieldValue('refImageURL', selectedId) // Actualiza el valor para la validación y submit
+    setSelectedStudentId(selectedId) // Actualiza el estado con el ID del estudiante seleccionado
 
     if (selectedId) {
       try {
@@ -208,6 +290,61 @@ const FaceRecognition = () => {
               </Select>
 
               {showRefImage && (
+                <FormControl
+                  fullWidth
+                  sx={{ gridColumn: 'span 4' }}
+                  variant="filled"
+                >
+                  <InputLabel>Enrollments</InputLabel>
+                  <Select
+                    name="enrollment_id"
+                    value={values.enrollment_id || ''} // Asegúrate de que si no hay un valor seleccionado, use una cadena vacía
+                    onBlur={handleBlur}
+                    onChange={(event) =>
+                      handleEnrollmentSelect(event, setFieldValue)
+                    }
+                  >
+                    {selectedStudentId && enrollments?.length > 0 ? (
+                      enrollments.filter(
+                        (enrollment) =>
+                          enrollment.student_id === parseInt(selectedStudentId)
+                      ).length > 0 ? (
+                        enrollments
+                          .filter(
+                            (enrollment) =>
+                              enrollment.student_id ===
+                              parseInt(selectedStudentId)
+                          )
+                          .map((enrollment) => {
+                            const course = courses.find(
+                              (c) => c.id === enrollment.course_id
+                            )
+                            const courseName = course
+                              ? course.name
+                              : `Unknown Course (${enrollment.course_id})`
+                            return (
+                              <MenuItem
+                                key={enrollment.id}
+                                value={enrollment.id}
+                              >
+                                Enrollment al curso: {courseName}
+                              </MenuItem>
+                            )
+                          })
+                      ) : (
+                        <MenuItem disabled>
+                          No enrollment available for this student
+                        </MenuItem>
+                      )
+                    ) : (
+                      <MenuItem disabled>
+                        Please select a student first
+                      </MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              )}
+              {showRefImage && (
                 <MuiButton
                   component="label"
                   variant="contained"
@@ -234,7 +371,6 @@ const FaceRecognition = () => {
                   />
                 </MuiButton>
               )}
-
               {showRefImage && (
                 <Box position="relative" width="100%" height="auto">
                   <img
@@ -254,7 +390,6 @@ const FaceRecognition = () => {
                   ></canvas>
                 </Box>
               )}
-
               {showImageToCompare && (
                 <Box position="relative" width="100%" height="auto">
                   <img
@@ -289,11 +424,13 @@ const FaceRecognition = () => {
 
 const checkoutSchema = yup.object().shape({
   refImageURL: yup.number().required('Student ID is required'),
+  enrollment_id: yup.number().required('Enrollment ID is required'),
   image: yup.mixed().required('Image is required'),
 })
 
 const initialValues = {
   refImageURL: '',
+  enrollment_id: '',
   image: null,
 }
 
