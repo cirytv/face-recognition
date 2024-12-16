@@ -44,6 +44,20 @@ const Dashboard = () => {
                 '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
               }}
             >
+              {/* Añadimos la caja de chat aquí */}
+              <TextField
+                fullWidth
+                variant="filled"
+                multiline
+                rows={4} // Ajusta el número de filas según lo necesario
+                label="Prolog Responses"
+                value={responses.join('\n') || 'No responses yet'} // Convertimos el array a string con saltos de línea
+                InputProps={{
+                  readOnly: true, // Para que no se pueda editar
+                }}
+                sx={{ gridColumn: 'span 4' }}
+              />
+
               <TextField
                 fullWidth
                 variant="filled"

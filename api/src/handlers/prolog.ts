@@ -12,6 +12,8 @@ const session = pl.create(1000)
 export const handlePrologQuery = async (req: Request, res: Response) => {
   const { query } = req.body
 
+  console.log(`Received query: ${query}`)
+
   try {
     // Cargar estudiantes, carreras, asistencias, inscripciones y horarios
     const students = await Student.findAll()
@@ -33,7 +35,7 @@ export const handlePrologQuery = async (req: Request, res: Response) => {
     const attendanceFacts = attendances
       .map(
         (att) =>
-          `attendance(${att.id},${att.enrollment_id},${att.schedule_id},'${att.status}',').`
+          `attendance(${att.id},${att.enrollment_id},${att.schedule_id},'${att.status}').`
       )
       .join('\n')
     const enrollmentFacts = enrollments
