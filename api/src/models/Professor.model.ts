@@ -5,6 +5,13 @@ import { Table, Column, Model, DataType } from 'sequelize-typescript'
 })
 class Professor extends Model {
   @Column({
+    type: DataType.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  })
+  declare id: number
+
+  @Column({
     type: DataType.STRING,
   })
   declare image: string

@@ -6,6 +6,13 @@ import { Table, Column, Model, DataType } from 'sequelize-typescript'
 class Attendance extends Model {
   @Column({
     type: DataType.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  })
+  declare id: number
+
+  @Column({
+    type: DataType.INTEGER,
   })
   declare enrollment_id: number
 

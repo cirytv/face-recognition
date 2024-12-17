@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   return (
     <Box m="20px">
-      <Header title="Prolog" subtitle="Ask Something" />
+      <Header title="Prolog" subtitle="Subtitle" />
 
       <Formik
         onSubmit={handleFormSubmit}

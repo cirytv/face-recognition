@@ -21,7 +21,7 @@ const FormCareer = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE CAREER" subtitle="Crea una nueva carrera" />
+      <Header title="CREAR CARRERA" subtitle="Crea una nueva carrera" />
 
       <Formik
         onSubmit={handleFormSubmit}

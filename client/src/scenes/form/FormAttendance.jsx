@@ -38,10 +38,7 @@ const FormAttendance = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="CREATE ATTENDANCE"
-        subtitle="Create a New Attendance Profile"
-      />
+      <Header title="CREAR ASISTENCIA" subtitle="subtitle" />
 
       <Formik
         onSubmit={handleFormSubmit}

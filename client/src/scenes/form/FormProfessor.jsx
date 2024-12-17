@@ -36,7 +36,7 @@ const FormProfessor = () => {
   return (
     <Box m="20px">
       <Header
-        title="CREATE PROFESSOR"
+        title="CREAR PROFESOR"
         subtitle="Create a New Professor Profile"
       />
 

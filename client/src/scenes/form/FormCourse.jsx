@@ -21,7 +21,7 @@ const FormCourse = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE STUDENT" subtitle="Create a New Course Profile" />
+      <Header title="CREAR CURSO" subtitle="Subtitle" />
 
       <Formik
         onSubmit={handleFormSubmit}
