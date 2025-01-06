@@ -17,7 +17,7 @@ INSERT INTO careers (name, description, "createdAt", "updatedAt") VALUES
 ('Biology', 'Study of life and living organisms', current_timestamp, current_timestamp),
 ('Mathematics', 'Study of numbers, quantities, and shapes', current_timestamp, current_timestamp),
 ('Economics', 'Study of production, distribution, and consumption of goods and services', current_timestamp, current_timestamp),
-('Psychology', 'Study of mind and behavior', "createdAt", "updatedAt"),
+('Psychology', 'Study of mind and behavior', current_timestamp, current_timestamp),
 ('History', 'Study of past human events', current_timestamp, current_timestamp),
 ('Literature', 'Study of written works', current_timestamp, current_timestamp),
 ('Art', 'Study of visual arts', current_timestamp, current_timestamp);

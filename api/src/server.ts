@@ -14,6 +14,7 @@ import cors from 'cors'
 import path from 'path'
 import fs from 'fs'
 import { router_prolog } from './router/prolog'
+import { router_chat } from './router/chat'
 
 // connect to database
 export async function connectDB() {
@@ -65,5 +66,6 @@ server.use('/api/careers', router_careers)
 server.use('/api/schedules', router_schedules)
 // prolog
 server.use('/api/prolog', router_prolog)
-
+// chat
+server.use('/api/chat', router_chat)
 export default server

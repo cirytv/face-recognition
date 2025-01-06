@@ -121,6 +121,7 @@ export const handlePrologQuery = async (req: Request, res: Response) => {
               success: () => {
                 session.answers((answer) => {
                   if (answer === false) {
+                    console.log('Resultado bruto de Prolog:', results)
                     res.status(200).send(results)
                   } else {
                     const formattedAnswer = session
@@ -131,24 +132,24 @@ export const handlePrologQuery = async (req: Request, res: Response) => {
                 })
               },
               error: (err) => {
-                console.error('Error querying Prolog:', err)
+                // console.error('Error querying Prolog:', err)
                 res.status(500).send({ error: 'Error executing Prolog query' })
               },
             })
           },
           error: (err) => {
-            console.error('Error consulting Prolog:', err)
+            // console.error('Error consulting Prolog:', err)
             res.status(500).json({ error: 'Error consulting Prolog' })
           },
         })
       },
       error: (err) => {
-        console.error('Error clearing Prolog session:', err)
+        // console.error('Error clearing Prolog session:', err)
         res.status(500).json({ error: 'Error clearing Prolog session' })
       },
     })
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     res.status(500).json({ error: 'Error executing Prolog query' })
   }
 }
