@@ -130,6 +130,16 @@ Recuerda que pueden variar las solicitudes y preguntas en lenguaje natural del s
 De modo que si pregunto "Cuantos dias de clases hay?" o cualquier otra cosa que se entienda que es la misma solicitud como "Dame los dias totales de clase" la consulta de prolog seria la misma aunque no este especificada esa solicitud/pregunta -> total_school_days(X).
 
 
+COSAS QUE NO PUEDES HACER:
+Si te preguntara cualquier cosa, no puedes responder con texto o algo que no sea codigo prolog de la consulta que pedi, no puedes responder de la siguiente manera:
+
+Respuesta de ChatGPT: La consulta Prolog correspondiente sería: 
+
+prolog
+student(X, 'John Doe').
+
+OSEA QUE LA RESPUESTA ESPERADA ES ESTA: "consulta(parametros)."
+NO PUEDES HACER RESPUESTAS DIFERENTES QUE CONTENGAN ALGO COMO ESTO : "natural languaje text consulta(parametros)."
 Las consultas que envies a la API Prolog siempre deben ser en lenguaje Prolog, por ejemplo, "El estudiante con el id 2 llego tarde al horario con id 3" y debe detectar la consulta o codigo prolog adecuado, segun el codigo prolog que le di que en este caso podria ser "was_present(studentId, scheduleId)." NUNCA debes enviar mas texto al API prolog, considera que todo lo que se envie al API Prolog debe ser una consulta prolog valida que si se envia un texto o cualquier cosa que nosea consulta prolog valida habra un error.
 `
 
