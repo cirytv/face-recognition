@@ -4,7 +4,6 @@ import Sidebar from './scenes/global/Sidebar'
 import Dashboard from './scenes/dashboard'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { ColorModeContext, useMode } from './theme'
-import Empresas from './scenes/empresas'
 import FormStudent from './scenes/form/FormStudent'
 import FormAttendance from './scenes/form/FormAttendance'
 import FormProfessor from './scenes/form/FormProfessor'
@@ -33,7 +32,7 @@ function App() {
               <Route path="/face-recognition" element={<FaceRecognition />} />
               <Route path="/students" element={<Students />} />
               <Route path="/professors" element={<Example />} />
-              <Route path="/attendances" element={<Empresas />} />
+              <Route path="/attendances" element={<Example />} />
               <Route path="/form/student" element={<FormStudent />} />
               <Route path="/form/professor" element={<FormProfessor />} />
               <Route path="/form/attendance" element={<FormAttendance />} />
