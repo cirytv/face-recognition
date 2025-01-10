@@ -6,6 +6,7 @@ import Header from '../../components/Header'
 import { Button as MuiButton } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useProfessors } from '../../hooks/useProfessors'
+import { toast } from 'react-toastify'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -28,8 +29,26 @@ const FormProfessor = () => {
     try {
       const newProfessor = await addProfessor(values)
       console.log('Professor created: ', newProfessor)
+      toast.success('Profesor registrado', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.error('Error creating student:', error.message)
+      toast.error('Error creating student', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
 

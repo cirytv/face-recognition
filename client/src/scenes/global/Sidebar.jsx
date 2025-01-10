@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import { Box, IconButton, Typography, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
@@ -11,17 +11,19 @@ import BusinessIcon from '@mui/icons-material/Business'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 import SubjectIcon from '@mui/icons-material/Subject'
 import 'react-pro-sidebar/dist/css/styles.css'
+import { useLocation } from 'react-router-dom'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+
   return (
     <MenuItem
-      active={selected === to}
+      active={selected === to} // Changed from selected === title to selected === to
       style={{
         color: colors.grey[100],
       }}
-      onClick={() => setSelected(to)}
+      onClick={() => setSelected(to)} // Ensure this matches the active check
       icon={icon}
     >
       <Typography>{title}</Typography>
@@ -34,7 +36,13 @@ const Sidebar = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [selected, setSelected] = useState('Dashboard')
+  const [selected, setSelected] = useState('') // Initialize as an empty string or default route
+  const location = useLocation()
+
+  useEffect(() => {
+    // Set selected based on the current path when the component mounts or when the route changes
+    setSelected(location.pathname)
+  }, [location])
 
   return (
     <Box
@@ -120,9 +128,17 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Item
+            {/* <Item
               title="Face Recognition"
               to="/face-recognition"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+
+            <Item
+              title="Webcam"
+              to="/webcam"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

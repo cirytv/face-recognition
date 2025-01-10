@@ -37,7 +37,7 @@ const ChatBox = () => {
     <Box sx={{ width: '100%', maxWidth: 1200, margin: 'auto', mt: 4 }}>
       <Header
         title="Chat with ChatGPT + Prolog"
-        subtitle="Ask about student attendance"
+        subtitle="Ask something about student"
       />
       <List>
         {messages.map((message, index) => (
@@ -78,8 +78,20 @@ const ChatBox = () => {
           placeholder="Type your query here..."
           variant="outlined"
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+          sx={{
+            backgroundColor: colors.primary[900],
+          }}
         />
-        <Button variant="contained" onClick={handleSendMessage} sx={{ ml: 1 }}>
+        <Button 
+          variant="contained" onClick={handleSendMessage}  
+          sx={{
+            ml: 1,
+            backgroundColor: colors.greenAccent[400],
+            fontWeight: 'bold',
+            '&:hover': {
+              backgroundColor: colors.greenAccent[100], // Puedes definir un tono más claro para el hover si lo deseas
+          },
+  }}>
           Send
         </Button>
       </Box>

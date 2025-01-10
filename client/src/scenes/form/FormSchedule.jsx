@@ -15,6 +15,7 @@ import { useCourses } from '../../hooks/useCourses'
 import { useProfessors } from '../../hooks/useProfessors'
 import { useEffect } from 'react'
 import { useSchedules } from '../../hooks/useSchedules'
+import { toast } from 'react-toastify'
 
 const FormSchedule = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
@@ -32,8 +33,26 @@ const FormSchedule = () => {
     try {
       const newSchedule = await addSchedule(values)
       console.log('Schedule created:', newSchedule)
+      toast.success('Horario registrado', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.error('Error creating schedule:', error.message)
+      toast.error('Error creating schedule', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
 

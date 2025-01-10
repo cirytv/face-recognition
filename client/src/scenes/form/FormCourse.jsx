@@ -4,6 +4,7 @@ import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from '../../components/Header'
 import { useCourses } from '../../hooks/useCourses'
+import { toast } from 'react-toastify'
 
 const FormCourse = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
@@ -14,8 +15,26 @@ const FormCourse = () => {
     try {
       const newCourse = await addCourse(values)
       console.log('Course created: ', newCourse)
+      toast.success('Curso registrado', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.error('Error creating course:', error.message)
+      toast.error('Error creating course', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
 

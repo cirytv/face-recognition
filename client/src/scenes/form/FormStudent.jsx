@@ -17,6 +17,7 @@ import { Button as MuiButton } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useCareer } from '../../hooks/useCareers'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -44,8 +45,26 @@ const FormStudent = () => {
     try {
       const newStudent = await addStudent(values)
       console.log('Student created: ', newStudent)
+      toast.success('Estudiante registrado', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.error('Error creating student:', error.message)
+      toast.error('Error creating student', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
 

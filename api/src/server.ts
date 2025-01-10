@@ -15,6 +15,7 @@ import path from 'path'
 import fs from 'fs'
 import { router_prolog } from './router/prolog'
 import { router_chat } from './router/chat'
+import startDiscordBot from './handlers/discord' // Importa la función para iniciar el bot
 
 // connect to database
 export async function connectDB() {
@@ -29,6 +30,9 @@ export async function connectDB() {
   }
 }
 connectDB()
+
+// Inicia el bot de Discord
+startDiscordBot()
 
 // Instance express
 const server = express()

@@ -4,6 +4,7 @@ import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from '../../components/Header'
 import { useCareer } from '../../hooks/useCareers'
+import { toast } from 'react-toastify'
 
 const FormCareer = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
@@ -14,8 +15,26 @@ const FormCareer = () => {
     try {
       const newCareer = await addCareer(values)
       console.log('Career created: ', newCareer)
+      toast.success('Carrera registrada', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.error('Error creating career:', error.message)
+      toast.error('Error creating career:', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
 

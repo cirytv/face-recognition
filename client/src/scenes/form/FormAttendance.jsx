@@ -14,6 +14,7 @@ import { useAttendances } from '../../hooks/useAttendances'
 import { useEnrollments } from '../../hooks/useEnrollments'
 import { useSchedules } from '../../hooks/useSchedules'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 const FormAttendance = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
@@ -31,8 +32,26 @@ const FormAttendance = () => {
     try {
       const newAttendance = await addAttendance(values)
       console.log('Attendance created: ', newAttendance)
+      toast.success('Asistencia registrada', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.error('Error creating attendance:', error.message)
+      toast.error('EError creating attendance', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
 

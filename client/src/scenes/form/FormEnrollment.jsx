@@ -15,6 +15,7 @@ import { useEnrollments } from '../../hooks/useEnrollments'
 import { useStudents } from '../../hooks/useStudents'
 import { useCourses } from '../../hooks/useCourses'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 const FormCourse = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
@@ -32,8 +33,26 @@ const FormCourse = () => {
     try {
       const newEnrollment = await addEnrollment(values)
       console.log('Enrollment created: ', newEnrollment)
+      toast.success('Inscripcion registrada', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.error('Error creating enrollment:', error.message)
+      toast.error('Error creating enrollment', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
   return (

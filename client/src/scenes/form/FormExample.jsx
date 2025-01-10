@@ -3,12 +3,22 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from '../../components/Header'
+import { toast } from 'react-toastify'
 
 const FormExample = () => {
   const isNonMobile = useMediaQuery('(min-width:600px)')
 
   const handleFormSubmit = (values) => {
     console.log(values)
+    toast.success('example toast', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
   }
 
   return (

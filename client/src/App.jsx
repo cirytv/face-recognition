@@ -13,8 +13,10 @@ import FormExample from './scenes/form/FormExample'
 import FormCourse from './scenes/form/FormCourse'
 import FormCareer from './scenes/form/FormCareer'
 import FormEnrollment from './scenes/form/FormEnrollment'
-import FaceRecognition from './scenes/fr/faceRecognition'
+// import FaceRecognition from './scenes/fr/faceRecognition'
 import FormSchedule from './scenes/form/FormSchedule'
+import WebcamFaceRecognition from './scenes/webcam/WebcamFaceRecognition'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -29,7 +31,8 @@ function App() {
             <Topbar />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/face-recognition" element={<FaceRecognition />} />
+              {/* <Route path="/face-recognition" element={<FaceRecognition />} /> */}
+              <Route path="/webcam" element={<WebcamFaceRecognition />} />
               <Route path="/students" element={<Students />} />
               <Route path="/professors" element={<Example />} />
               <Route path="/attendances" element={<Example />} />
@@ -43,6 +46,7 @@ function App() {
               <Route path="/form/example" element={<FormExample />} />
             </Routes>
           </main>
+          <ToastContainer /> {/* Add this at the end of your main content */}
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
