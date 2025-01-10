@@ -42,7 +42,9 @@ const startDiscordBot = () => {
       }
     } catch (error) {
       console.error(`Error al procesar la consulta: ${error}`)
-      message.reply('There was an error processing your request (discord bot).')
+      message.reply(
+        `There was an error processing your request (discord bot): ${error}`
+      )
     }
   })
 
